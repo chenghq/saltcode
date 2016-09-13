@@ -1,0 +1,22 @@
+master服务的相关配置如下：
+order_masters
+    默认为：False
+    当master需要通过一个syndic minion来控制更底层的master，那么该属性必须设置为True
+    
+master_id
+    默认为：''
+    
+
+syndic_master
+    默认为：''
+    syndic_master: 10.255.252.207
+    syndic_master:
+      - 10.255.252.207
+      - 10.255.252.215 # 当配置为list时，代表双活TopMaster
+      
+syndic_failover
+    2016.3.0版本中的新属性
+    默认为：random 
+    可以定义为random或ordered
+    主要用于多syndic连接多master时的master选择策略，注意一个问题：设置为ordered时，10.255.252.207访问minion时速度较快，10.255.252.215访问时速度较慢（主要多出来一个saltutil.find_job的时间）。
+
